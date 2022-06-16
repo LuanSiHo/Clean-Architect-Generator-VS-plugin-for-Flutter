@@ -6,7 +6,7 @@
 ## How To Use
 Open Visual Studio Code -> View -> Command Palette... -> Generate Flutter Feature -> Input your feature name
 
-<img src="screenshot/1.png" width="879" height="704">    
-<img src="screenshot/2.png" width="879" height="704">
-<img src="screenshot/3.png" width="879" height="704">
-<img src="screenshot/4.png" width="879" height="704">
+<img src="screenshot/1.png" width="1920" height="719">    
+<img src="screenshot/2.png" width="829" height="745">
+<img src="screenshot/3.png" width="878" height="597">
+<img src="screenshot/4.png" width="394" height="540">
