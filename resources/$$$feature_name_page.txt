@@ -1,0 +1,109 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:$$$package_name/features/$$$feature_name/di/$$$feature_name_injector.dart';
+import 'package:$$$package_name/features/$$$feature_name/presentation/blocs/$$$feature_name_bloc.dart';
+
+class $$$FeatureNamePage extends StatefulWidget {
+  const $$$FeatureNamePage({Key key, this.arguments}) : super(key: key);
+  final Map<String, dynamic> arguments;
+
+  @override
+  _$$$FeatureNamePageState createState() => _$$$FeatureNamePageState();
+}
+
+class _$$$FeatureNamePageState extends State<$$$FeatureNamePage> {
+  bool _isLoading = false;
+  $$$FeatureNameBloc _bloc;
+
+  @override
+  void initState() {
+    _bloc = $$$FeatureNameBloc(fetch$$$FeatureNameUseCase: fetch$$$FeatureNameUseCase);
+    _fetch$$$FeatureNameData();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _bloc = null;
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => _bloc,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(title: Text('App bar')),
+        body: _buildBody(),
+      ),
+    );
+  }
+
+  Widget _buildBody() {
+    return Stack(
+      children: [
+        BlocBuilder<$$$FeatureNameBloc, $$$FeatureNameState>(
+          buildWhen: (previous, current) {
+            return current.status == $$$FeatureNameStateStatus.loadedSuccess ||
+                current.status == $$$FeatureNameStateStatus.loadedFailed;
+          },
+          builder: (_, state) {
+            if (state.status == $$$FeatureNameStateStatus.loadedSuccess) {
+              return SafeArea(
+                child: Stack(
+                  children: [Positioned(top: 0, left: 0, right: 0, bottom: 0, child: Center(child: Text('Welcome!')))
+                  ]
+                ),
+              );
+            } else if (state.status == $$$FeatureNameStateStatus.loadedFailed) {
+              return Container(color: Colors.red);
+            } else {
+              return const SizedBox();
+            }
+          },
+        ),
+        BlocListener<$$$FeatureNameBloc, $$$FeatureNameState>(
+          listenWhen: (previous, current) {
+            return current.status == $$$FeatureNameStateStatus.showLoading || current.status == $$$FeatureNameStateStatus.hideLoading;
+          },
+          listener: (_, state) {
+            switch (state.status) {
+              case $$$FeatureNameStateStatus.showLoading:
+                _handleLoadingData(true);
+                break;
+              case $$$FeatureNameStateStatus.hideLoading:
+                _handleLoadingData(false);
+                break;
+              default:
+            }
+          },
+          child: _widgetLoading(_isLoading),
+        ),
+      ],
+    );
+  }
+
+  Widget _widgetLoading(bool isLoading) {
+    if (isLoading) {
+      return Positioned.fill(
+        child: Container(
+          color: Colors.transparent,
+          child: Center(child: Text('Loading...')),
+        ),
+      );
+    }
+    return const SizedBox();
+  }
+
+  void _handleLoadingData(bool loading) {
+      setState(() {
+        _isLoading = loading;
+      });
+  }
+
+  void _fetch$$$FeatureNameData() {
+    _bloc?.add(EventFetch$$$FeatureName(id: 'xxx'));
+  }
+}
