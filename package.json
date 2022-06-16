@@ -23,7 +23,7 @@
     "commands": [
       {
         "command": "clean-architect-generator.generateFeature",
-        "title": "Generate Feature for OG"
+        "title": "Generate Flutter Feature"
       }
     ]
   },
